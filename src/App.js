@@ -51,21 +51,7 @@ function App() {
     setRecipes(updatedRecipes);
     setEditRecipe({ id: null, name: "", ingredients: "" });
   };
-  function handleEditRecipe(recipeId) {
-    const recipeIndex = recipes.findIndex((recipe) => recipe.id === recipeId);
-    const recipe = recipes[recipeIndex];
-  
-    // update the recipe in the state with a new name
-    const newRecipe = { ...recipe, name: 'New Recipe Name' };
-    const newRecipes = [
-      ...recipes.slice(0, recipeIndex),
-      newRecipe,
-      ...recipes.slice(recipeIndex + 1),
-    ];
-  
-    // update the state with the new recipes array
-    setRecipes(newRecipes);
-  }
+
   const handleToggleFavorite = (id) => {
     const updatedRecipes = recipes.map((recipe) => {
       if (recipe.id === id) {
@@ -113,32 +99,32 @@ function App() {
               </>
             ) : (
               <>
-                <h2>{recipe.name}</h2>
-                <p>{recipe.ingredients}</p>
-                <button onClick={() => handleDeleteRecipe(recipe.id)}>
-                  Delete Recipe
-                </button>
+                <div>{recipe.name}</div>
+                <div>{recipe.ingredients}</div>
                 <button onClick={() => handleToggleFavorite(recipe.id)}>
                   {recipe.isFavorited ? "Unfavorite" : "Favorite"}
                 </button>
-                <button onClick={() => handleEditRecipe(recipe)}>
-                  Edit Recipe
+                <button onClick={() => setEditRecipe(recipe)}>
+                  Edit
+                </button>
+                <button onClick={() => handleDeleteRecipe(recipe.id)}>
+                  Delete
                 </button>
               </>
             )}
           </li>
         ))}
       </ul>
-      <h2>Add New Recipe</h2>
-      <label>Name:</label>
+      <h2>Add Recipe</h2>
       <input
         type="text"
+        placeholder="Recipe Name"
         value={newRecipe.name}
         onChange={(e) => setNewRecipe({ ...newRecipe, name: e.target.value })}
       />
-      <label>Ingredients:</label>
       <input
         type="text"
+        placeholder="Ingredients"
         value={newRecipe.ingredients}
         onChange={(e) =>
           setNewRecipe({ ...newRecipe, ingredients: e.target.value })
@@ -148,5 +134,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
