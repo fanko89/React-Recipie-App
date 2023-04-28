@@ -16,7 +16,7 @@ function App() {
     setRecipes([...recipes, recipeToAdd]);
     setNewRecipe({ name: "", ingredients: "" });
   };
-
+//delete recipe
   const handleDeleteRecipe = (id) => {
     const updatedRecipes = recipes.filter((recipe) => recipe.id !== id);
     setRecipes(updatedRecipes);
