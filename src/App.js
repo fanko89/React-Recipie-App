@@ -35,8 +35,8 @@ function App() {
     const updatedRecipes = recipes.filter((recipe) => recipe.id !== id);
     setRecipes(updatedRecipes);
   };
-
-  const handEditRecipe = (recipe) => {
+// eslint-disable-next-line
+  const handleEditRecipe = (recipe) => {
     setEditRecipe({
       id: recipe.id,
       name: recipe.name,
@@ -115,7 +115,7 @@ function App() {
                 <button onClick={() => handleToggleFavorite(recipe.id)}>
                   {recipe.isFavorited ? "Unfavorite" : "Favorite"}
                 </button>
-                <button onClick={() => handEditRecipe(recipe)}>
+                <button onClick={() => handleEditRecipe(recipe)}>
                   Edit Recipe
                 </button>
               </>
