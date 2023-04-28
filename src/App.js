@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// eslint-disable-next-line
+
 function App() {
   const [recipes, setRecipes] = useState([
     {
@@ -35,8 +35,7 @@ function App() {
     const updatedRecipes = recipes.filter((recipe) => recipe.id !== id);
     setRecipes(updatedRecipes);
   };
-
-
+  
   const handleSaveRecipe = () => {
     const updatedRecipes = recipes.map((recipe) => {
       if (recipe.id === editRecipe.id) {
@@ -52,7 +51,21 @@ function App() {
     setRecipes(updatedRecipes);
     setEditRecipe({ id: null, name: "", ingredients: "" });
   };
-
+  function handleEditRecipe(recipeId) {
+    const recipeIndex = recipes.findIndex((recipe) => recipe.id === recipeId);
+    const recipe = recipes[recipeIndex];
+  
+    // update the recipe in the state with a new name
+    const newRecipe = { ...recipe, name: 'New Recipe Name' };
+    const newRecipes = [
+      ...recipes.slice(0, recipeIndex),
+      newRecipe,
+      ...recipes.slice(recipeIndex + 1),
+    ];
+  
+    // update the state with the new recipes array
+    setRecipes(newRecipes);
+  }
   const handleToggleFavorite = (id) => {
     const updatedRecipes = recipes.map((recipe) => {
       if (recipe.id === id) {
@@ -108,7 +121,9 @@ function App() {
                 <button onClick={() => handleToggleFavorite(recipe.id)}>
                   {recipe.isFavorited ? "Unfavorite" : "Favorite"}
                 </button>
-     
+                <button onClick={() => handleEditRecipe(recipe)}>
+                  Edit Recipe
+                </button>
               </>
             )}
           </li>
