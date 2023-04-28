@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+// eslint-disable-next-line
 function App() {
   const [recipes, setRecipes] = useState([
     { id: 1, name: "Pizza", ingredients: "bread, tomato sauce, cheese", isFavorited: false },
