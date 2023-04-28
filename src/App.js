@@ -35,7 +35,7 @@ function App() {
     const updatedRecipes = recipes.filter((recipe) => recipe.id !== id);
     setRecipes(updatedRecipes);
   };
-// eslint-disable-next-line
+  
   const handleEditRecipe = (recipe) => {
     setEditRecipe({
       id: recipe.id,
@@ -43,7 +43,6 @@ function App() {
       ingredients: recipe.ingredients,
     });
   };
-
   const handleSaveRecipe = () => {
     const updatedRecipes = recipes.map((recipe) => {
       if (recipe.id === editRecipe.id) {
