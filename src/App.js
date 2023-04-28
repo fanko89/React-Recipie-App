@@ -36,7 +36,7 @@ function App() {
     setRecipes(updatedRecipes);
   };
 
-  const handleEditRecipe = (recipe) => {
+  const handEditRecipe = (recipe) => {
     setEditRecipe({
       id: recipe.id,
       name: recipe.name,
@@ -115,7 +115,7 @@ function App() {
                 <button onClick={() => handleToggleFavorite(recipe.id)}>
                   {recipe.isFavorited ? "Unfavorite" : "Favorite"}
                 </button>
-                <button onClick={() => handleEditRecipe(recipe)}>
+                <button onClick={() => handEditRecipe(recipe)}>
                   Edit Recipe
                 </button>
               </>
