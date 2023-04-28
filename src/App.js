@@ -2,16 +2,17 @@ import React, { useState } from "react";
 
 function App() {
   const [recipes, setRecipes] = useState([
-    { id: 1, name: "Spaghetti Bolognese", ingredients: "spaghetti, beef, tomato sauce, onion, garlic", isFavorited: false },
-    { id: 2, name: "Chicken Curry", ingredients: "chicken, curry powder, coconut milk, onion, garlic", isFavorited: false },
-    { id: 3, name: "Beef Stew", ingredients: "beef, carrots, potatoes, onion, garlic, beef broth", isFavorited: false }
+    { id: 1, name: "Pizza", ingredients: "bread, tomato sauce, cheese", isFavorited: false },
+    { id: 2, name: "Soup", ingredients: "soup powder, coconut milk, water", isFavorited: false },
+    { id: 3, name: "Hot Dog", ingredients: "beef, bun", isFavorited: false }
   ]);
 
   const [newRecipe, setNewRecipe] = useState({ name: "", ingredients: "" });
+  const [editRecipe, setEditRecipe] = useState({ id: null, name: "", ingredients: "" });
 
   const handleAddRecipe = () => {
     const recipeId = recipes.length + 1;
-    const recipeToAdd = { ...newRecipe, id: recipeId };
+    const recipeToAdd = { ...newRecipe, id: recipeId, isFavorited: false };
     setRecipes([...recipes, recipeToAdd]);
     setNewRecipe({ name: "", ingredients: "" });
   };
@@ -21,15 +22,20 @@ function App() {
     setRecipes(updatedRecipes);
   };
 
-  const handleEditRecipe = (id, updatedRecipe) => {
+  const handleEditRecipe = (recipe) => {
+    setEditRecipe({ id: recipe.id, name: recipe.name, ingredients: recipe.ingredients });
+  };
+
+  const handleSaveRecipe = () => {
     const updatedRecipes = recipes.map((recipe) => {
-      if (recipe.id === id) {
-        return { ...recipe, ...updatedRecipe };
+      if (recipe.id === editRecipe.id) {
+        return { ...recipe, name: editRecipe.name, ingredients: editRecipe.ingredients };
       } else {
         return recipe;
       }
     });
     setRecipes(updatedRecipes);
+    setEditRecipe({ id: null, name: "", ingredients: "" });
   };
 
   const handleToggleFavorite = (id) => {
@@ -49,10 +55,22 @@ function App() {
       <ul>
         {recipes.map((recipe) => (
           <li key={recipe.id}>
-            <h2>{recipe.name}</h2>
-            <p>{recipe.ingredients}</p>
-            <button onClick={() => handleDeleteRecipe(recipe.id)}>Delete Recipe</button>
-            <button onClick={() => handleToggleFavorite(recipe.id)}>{recipe.isFavorited ? "Unfavorite" : "Favorite"}</button>
+            {editRecipe.id === recipe.id ? (
+              <>
+                <input type="text" value={editRecipe.name} onChange={(e) => setEditRecipe({ ...editRecipe, name: e.target.value })} />
+                <input type="text" value={editRecipe.ingredients} onChange={(e) => setEditRecipe({ ...editRecipe, ingredients: e.target.value })} />
+                <button onClick={handleSaveRecipe}>Save</button>
+                <button onClick={() => setEditRecipe({ id: null, name: "", ingredients: "" })}>Cancel</button>
+              </>
+            ) : (
+              <>
+                <h2>{recipe.name}</h2>
+                <p>{recipe.ingredients}</p>
+                <button onClick={() => handleDeleteRecipe(recipe.id)}>Delete Recipe</button>
+                <button onClick={() => handleToggleFavorite(recipe.id)}>{recipe.isFavorited ? "Unfavorite" : "Favorite"}</button>
+                <button onClick={() => handleEditRecipe(recipe)}>Edit Recipe</button>
+              </>
+            )}
           </li>
         ))}
       </ul>
