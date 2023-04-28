@@ -36,13 +36,7 @@ function App() {
     setRecipes(updatedRecipes);
   };
 
-  // const handleEditRecipe = (recipe) => {
-  //   setEditRecipe({
-  //     id: recipe.id,
-  //     name: recipe.name,
-  //     ingredients: recipe.ingredients,
-  //   });
-  // };
+
   const handleSaveRecipe = () => {
     const updatedRecipes = recipes.map((recipe) => {
       if (recipe.id === editRecipe.id) {
@@ -114,9 +108,7 @@ function App() {
                 <button onClick={() => handleToggleFavorite(recipe.id)}>
                   {recipe.isFavorited ? "Unfavorite" : "Favorite"}
                 </button>
-                {/* <button onClick={() => handleEditRecipe(recipe)}>
-                  Edit Recipe
-                </button> */}
+     
               </>
             )}
           </li>
